@@ -208,6 +208,7 @@
     }
 
         var totalShape = [];
+        var string = 'abcdefghijklmnopqrstuvwxyz';
 
         var raster = new Raster('./img/pao.png');
         raster.position = view.center;
@@ -246,7 +247,7 @@
             raster.rotate(2);
             // Each frame, rotate the path by 3 degrees:
             for (var i = 0; i < totalShape.length; i++) {
-                totalShape[i].scale(0.95);
+                totalShape[i].scale(0.96);
                 totalShape[i].rotate(3);
                 if (totalShape[i].fillcolor !== undefined)
                     totalShape[i].fillcolor.hue += 10;
@@ -261,11 +262,34 @@
 
         }
 
+        function onMouseDown(event) {
+          console.log('mouse down');
+          var chance = Math.random();
+          var ran = Math.floor(Math.random()*26);
+
+            if (chance < 0.4) {
+                var tmpShape = createShape(keyData[string[ran]].color);
+                totalShape.push(tmpShape);
+            } else if (chance < 0.6 && chance >= 0.4) {
+                var tmpText = getText();
+                totalShape.push(tmpText);
+            } else {
+                var tmpGay = getGay();
+                totalShape.push(tmpGay);
+          }
+            keyData[string[ran]].sound.play();
+        }
+
         function onKeyDown(event) {
+
             if (keyData[event.key]) {
-                if (Math.random() > 0.4) {
+              var chance = Math.random();
+                if (chance < 0.4) {
                     var tmpShape = createShape(keyData[event.key].color);
                     totalShape.push(tmpShape);
+                } else if (chance < 0.6 && chance >= 0.4) {
+                    var tmpText = getText();
+                    totalShape.push(tmpText);
                 } else {
                     var tmpGay = getGay();
                     totalShape.push(tmpGay);
@@ -303,6 +327,27 @@
           fontWeight: 'bold',
           fillColor: 'white'
         }
+
+        function getText() {
+          var x = Math.random() * view.size.width * 0.8;
+          var y = Math.random() * view.size.height * 0.8;
+          var text = new PointText(new Point(x, y));
+          text.fillcolor='white';
+          if (Math.random() > 0.5) {
+            text.content='666666666';
+          } else {
+            text.content = '头皮花麻';
+          }
+
+          text.style = {
+            fontSize: 200,
+            fontWeight: 'bold',
+            fillColor: 'white'
+          }
+
+          return text;
+        }
+
 
 
     </script>
