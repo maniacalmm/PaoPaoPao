@@ -207,6 +207,7 @@
         }
     }
 
+        var hits = 0;
         var totalShape = [];
         var string = 'abcdefghijklmnopqrstuvwxyz';
 
@@ -263,6 +264,7 @@
         }
 
         function onMouseDown(event) {
+          scoreUpdate();
           console.log('mouse down');
           var chance = Math.random();
           var ran = Math.floor(Math.random()*26);
@@ -281,6 +283,7 @@
         }
 
         function onKeyDown(event) {
+            scoreUpdate();
 
             if (keyData[event.key]) {
               var chance = Math.random();
@@ -317,12 +320,33 @@
           fillColor: 'white'
         }
 
-        var text2 = new PointText(new Point(view.size.width/1.5, view.size.height/2.5));
+        var text2 = new PointText(new Point(view.size.width/1.65, view.size.height/3.3));
         text2.fillcolor = 'white';
-        text2.content = 'キーボードを押してね';
+        text2.content = 'キーボード / タッチ';
         text2.strokeColor = 'white';
         text2.rotate(45);
         text2.style = {
+          fontSize: 50,
+          fontWeight: 'bold',
+          fillColor: 'white'
+        }
+
+        var  text3 = new PointText(new Point(view.size.width/1.55, view.size.height/1.6));
+         text3.fillcolor = 'white';
+         text3.content = 'をしてね';
+         text3.strokeColor = 'white';
+         text3.rotate(45);
+         text3.style = {
+          fontSize: 50,
+          fontWeight: 'bold',
+          fillColor: 'white'
+        }
+
+        var score = new PointText(new Point(view.size.width/2.6, view.size.height/1.15));
+        score.fillcolor = 'white';
+        score.content = hits + ' Combos';
+        score.strokeColor = 'white';
+        score.style = {
           fontSize: 50,
           fontWeight: 'bold',
           fillColor: 'white'
@@ -344,8 +368,12 @@
             fontWeight: 'bold',
             fillColor: 'white'
           }
-
           return text;
+        }
+
+        function scoreUpdate() {
+          hits++;
+          score.content = hits + ' Combos';
         }
 
 
