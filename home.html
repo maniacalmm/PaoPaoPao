@@ -15,11 +15,21 @@
             height: 100%;
             margin: 0;
         }
+
+        button {
+          position: absolute;
+          left: 30px;
+          top: 30px;
+          border-radius: 5px;
+          font-size: 20px;
+          font-weight: bold;
+        }
     </style>
 
 
     <script type="text/paperscript" canvas="myCanvas">
         // Create a Paper.js Path to draw a line into it:;
+
 
     var keyData = {
 
@@ -362,6 +372,15 @@
           fillColor: 'white'
         }
 
+        var credit = new PointText(new Point(view.size.width/2.8, view.size.height/1.05));
+        credit.fillcolor = 'black';
+        credit.content = 'Proundly presented by K.Okada with \u2665'
+        credit.strokeColor = 'black';
+        credit.style = {
+          fontSize: 20,
+          fillColor: 'black'
+        }
+
         function getText() {
           var x = Math.random() * view.size.width * 0.8;
           var y = Math.random() * view.size.height * 0.8;
@@ -386,11 +405,25 @@
           score.content = hits + ' Combos';
         }
 
+        function toggleBGM() {
+          console.log('worked');
+        }
 
-
+        var on = true;
+        document.querySelector('button').addEventListener('click', function() {
+          if (on) {
+            bgm.stop();
+            on = !on;
+          } else {
+            bgm.play();
+            on = !on;
+          }
+        });
     </script>
+
 </head>
 <body>
+    <button>BGM ON/OFF</button>
     <canvas id="myCanvas" resize></canvas>
 </body>
 </html>
